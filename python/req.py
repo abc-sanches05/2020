@@ -1,4 +1,4 @@
 import requests
 
 responce = requests.get("https://www.engineerspock.com/")
-print(responce)
+print(responce.status_code)

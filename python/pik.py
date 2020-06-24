@@ -19,9 +19,13 @@ with open("C:\\Users\\Александр\\Desktop\\python\\log\\varshavskay_new3
 
 
 
-result = re.findall(r'a href="/catalog/apartments/mtr.*a>', r_e, re.S)
+result = re.findall(r'a href="/catalog/apartments/mtr.*catalog-item__col _favorite-wrap', r_e, flags=re.DOTALL)
 
 for x in result: print(x)
 
 with open("C:\\Users\\Александр\\Desktop\\python\\log\\varshavskay_new3_log.txt", "w") as output_file:
   output_file.write(*result)
+
+
+m = re.search("a.b", "A\nBCB", flags=re.IGNORECASE|re.DOTALL) 
+print (m.group())

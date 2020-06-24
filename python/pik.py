@@ -20,12 +20,19 @@ with open("C:\\Users\\Александр\\Desktop\\python\\log\\varshavskay_new3
 
 
 result = re.findall(r'a href="/catalog/apartments/mtr.*catalog-item__col _favorite-wrap', r_e, flags=re.DOTALL)
+print(type(result))
+#for x in result: print(x)
+result2 = ''.join(result)
+resultsplit = re.split(r'</a>', result2)
 
-for x in result: print(x)
+#for x in resultsplit: print(x)
+
+print(type(resultsplit))
+print(resultsplit[1])
 
 with open("C:\\Users\\Александр\\Desktop\\python\\log\\varshavskay_new3_log.txt", "w") as output_file:
   output_file.write(*result)
 
-
-m = re.search("a.b", "A\nBCB", flags=re.IGNORECASE|re.DOTALL) 
-print (m.group())
+with open("C:\\Users\\Александр\\Desktop\\python\\log\\varshavskay_new3_split_log.txt", "w") as output_file2:
+  output_file2.write(str(resultsplit))
+  #output_file2.write(resultsplit[0])

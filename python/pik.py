@@ -16,4 +16,12 @@ with open("C:\\Users\\Александр\\Desktop\\python\\log\\varshavskay_new3
   output_file.write(r_e)
 
 
-print(r_e)
+
+
+
+result = re.findall(r'a href="/catalog/apartments/mtr.*a>', r_e, re.S)
+
+for x in result: print(x)
+
+with open("C:\\Users\\Александр\\Desktop\\python\\log\\varshavskay_new3_log.txt", "w") as output_file:
+  output_file.write(*result)

@@ -19,40 +19,35 @@ def parse(site):
     r_e = r.content
     r_e = bytes.decode(r_e, encoding='utf-8', errors='ignore')
 
-    result = re.findall(r'Pagination.*End of Pagination', r_e, flags=re.DOTALL)
-    result2 = ''.join(result)
-    resultsplit = re.split(r'</a>', result2)
-    allapart = []
-    for result3 in resultsplit:
-        apart_data = re.findall(r'data-val="(.+)">', result3)
-        apart_data = ''.join(apart_data)
-        print(apart_data)
-        
-        allapart.append(apart_data)
-    print(allapart)
-        
+    pages = re.findall(r'Pagination.*End of Pagination', r_e, flags=re.DOTALL)
+    pages2 = ''.join(pages)
+    pages3 = re.findall(r'data-val="([0-9]+)', pages2)
+    pages4 = [int(item) for item in pages3]
+    max1 = max(pages4)
+    print (max1)
+    
 
     # with open(r"C:\Users\Александр\Desktop\python\log\metr.html", "w", encoding='utf8') as output_file:
     #     output_file.write(r_e)
 
-    # result = re.findall(r'a href="/catalog/apartments/mtr.*catalog-item__col _favorite-wrap', r_e, flags=re.DOTALL)
-    # print(type(result))
-    # result2 = ''.join(result)
-    # resultsplit = re.split(r'</a>', result2)
+    # pages = re.findall(r'a href="/catalog/apartments/mtr.*catalog-item__col _favorite-wrap', r_e, flags=re.DOTALL)
+    # print(type(pages))
+    # pages2 = ''.join(pages)
+    # pagessplit = re.split(r'</a>', pages2)
     
-    # # for x in resultsplit: print(x)
-    # # print(type(resultsplit))
-    # # print(type(resultsplit[0]))
-    # # print(resultsplit[0])
+    # # for x in pagessplit: print(x)
+    # # print(type(pagessplit))
+    # # print(type(pagessplit[0]))
+    # # print(pagessplit[0])
 
     # # with open(r"C:\Users\Александр\Desktop\python\log\varshavskay_new3_log.txt", "w", encoding='utf8') as output_file:
-    # #     output_file.write(*result)
+    # #     output_file.write(*pages)
 
     # # with open(r"C:\Users\Александр\Desktop\python\log\varshavskay_new3_split_log.txt", "w", encoding='utf8') as output_file2:
-    # #     output_file2.write(str(resultsplit))
-    # #     # output_file2.write(resultsplit[0])
+    # #     output_file2.write(str(pagessplit))
+    # #     # output_file2.write(pagessplit[0])
 
-    # for oneapart in resultsplit:
+    # for oneapart in pagessplit:
     #     apart_n = re.findall(r'alt="(Квартира.+)"', oneapart)
     #     apart_data = re.findall(r'<div class="catalog-item__title _hover">(.+)</div>', oneapart)
     #     apart_price = re.findall(r'<div class="catalog-item__title _price _hover ">(.+) <span class="rub">q</span></div>', oneapart)

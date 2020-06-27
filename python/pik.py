@@ -1,5 +1,18 @@
 import requests
 import re
+import psycopg2
+
+# не работает sql
+def pgsql_insert(lstapart):
+    conn = psycopg2.connect(dbname='test', user='postgres', password='110167', host='localhost')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO mr ( apart, price, price_m) VALUES ('12', '100', '232')")
+    # records = cursor.fetchall()
+    # print (records)
+    conn.commit()
+    cursor.close()
+    conn.close()
+
 
 r = requests.get(
     "https://www.mr-group.ru/catalog/apartments/?project=42&min_price=&max_price=")
@@ -35,15 +48,22 @@ with open(r"C:\Users\Александр\Desktop\python\log\varshavskay_new3_spli
 
 for oneapart in resultsplit:
     apart_n = re.findall(r'alt="(Квартира.+)"', oneapart)
-    apart_data = re.findall(r'<div class="catalog-item__title _hover">(.+)</div>', oneapart)
-    apart_price = re.findall(r'<div class="catalog-item__title _price _hover ">(.+) <span class="rub">q</span></div>', oneapart)
-    apart_price_m = re.findall(r'<div class="catalog-item__subtitle _area">(.+) <span class="rub">q</span>/м²</div>', oneapart)
-    print(apart_n)
-    print(apart_data)
-    print(apart_price)
-    print(apart_price_m)
-    # lstapart =[]
-    # lstapart.append(apart_n)
-    # lstapart.append(apart_data)
-    # lstapart.append(apart_price)
-    # print(lstapart)
+    apart_data = re.findall(
+        r'<div class="catalog-item__title _hover">(.+)</div>', oneapart)
+    apart_price = re.findall(
+        r'<div class="catalog-item__title _price _hover ">(.+) <span class="rub">q</span></div>', oneapart)
+    apart_price_m = re.findall(
+        r'<div class="catalog-item__subtitle _area">(.+) <span class="rub">q</span>/м²</div>', oneapart)
+    apart_price = ''.join(apart_price).replace('&nbsp;', ' ')
+    apart_price_m = ''.join(apart_price_m).replace('&nbsp;', ' ')
+    # print(apart_n + apart_data)
+    # print(apart_price)
+    # print(apart_price_m)
+    lstapart = []
+    lstapart.append(apart_n)
+    lstapart.append(apart_data)
+    lstapart.append(apart_price)
+    lstapart.append(apart_price_m)
+    print(lstapart)
+    print(lstapart[0])
+    # pgsql_insert(lstapart)

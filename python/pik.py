@@ -33,7 +33,6 @@ with open(r"C:\Users\Александр\Desktop\python\log\varshavskay_new3_spli
     output_file2.write(str(resultsplit))
     # output_file2.write(resultsplit[0])
 
-i = 0
 for oneapart in resultsplit:
     apart_n = re.findall(r'alt="(Квартира.+)"', oneapart)
     apart_data = re.findall(r'<div class="catalog-item__title _hover">(.+)</div>', oneapart)

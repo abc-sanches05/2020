@@ -11,6 +11,27 @@ def pgsql_insert(lstapart):
     cursor.close()
     conn.close()
 
+
+def pages(site):
+    r = requests.get(site)
+    r_e = r.content
+    r_e = bytes.decode(r_e, encoding='utf-8', errors='ignore')
+    pages = re.findall(r'Pagination.*End of Pagination', r_e, flags=re.DOTALL)
+    pages2 = ''.join(pages)
+    pages3 = re.findall(r'data-val="([0-9]+)', pages2)
+    pages4 = [int(item) for item in pages3]
+    max1 = max(pages4)
+    all_apart = max1*15
+    print (all_apart)
+
+    conn = psycopg2.connect(dbname='test', user='postgres', password='110167', host='localhost')
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO count_apart ( desc_apart, developer, date, all_apart) VALUES (%s, %s, CURRENT_DATE, %s )', ('d1', 'mr', all_apart,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
 def parse(site):
 
     r = requests.get(site)
@@ -65,6 +86,9 @@ def parse(site):
         lstapart.append(''.join(apart_data[3]))
         print(lstapart)
         pgsql_insert(lstapart)
+# считаем сколько страниц
+all_apart = pages('https://www.mr-group.ru/catalog/apartments/?project=19&type=12&min_price=&max_price=')
+
 
 # студии павелецкая
 parse('https://www.mr-group.ru/catalog/apartments/?project=19&view_mode=list&scheme_building=&building=all&rooms%5B%5D=%D0%A1%D1%82%D1%83%D0%B4%D0%B8%D1%8F&min_area=&max_area=&min_price=&max_price=&floor=all&renovation=all&sort=PRICE_ASC&page=1')

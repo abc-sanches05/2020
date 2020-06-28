@@ -22,7 +22,14 @@ def pages(site):
     pages4 = [int(item) for item in pages3]
     max1 = max(pages4)
     all_apart = max1*15
-    return all_apart
+    print (all_apart)
+
+    conn = psycopg2.connect(dbname='test', user='postgres', password='110167', host='localhost')
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO count_apart ( desc_apart, developer, date, all_apart) VALUES (%s, %s, CURRENT_DATE, %s )', ('metropolia', 'mr', all_apart,))
+    conn.commit()
+    cursor.close()
+    conn.close()
 
 
 def parse(site):
@@ -85,4 +92,3 @@ parse('https://www.mr-group.ru/catalog/apartments/?project=42&view_mode=list&sch
 # 3 комнатные
 parse('https://www.mr-group.ru/catalog/apartments/?project=42&view_mode=list&scheme_building=&building=all&rooms%5B%5D=3&min_area=&max_area=&min_price=&max_price=&floor=all&renovation=all&sort=PRICE_ASC&page=1')
 
-print (all_apart)

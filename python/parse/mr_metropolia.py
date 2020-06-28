@@ -91,4 +91,3 @@ parse('https://www.mr-group.ru/catalog/apartments/?project=42&view_mode=list&sch
 parse('https://www.mr-group.ru/catalog/apartments/?project=42&view_mode=list&scheme_building=&building=all&rooms%5B%5D=2&min_area=&max_area=&min_price=&max_price=&floor=all&renovation=all&sort=PRICE_ASC&page=1')
 # 3 комнатные
 parse('https://www.mr-group.ru/catalog/apartments/?project=42&view_mode=list&scheme_building=&building=all&rooms%5B%5D=3&min_area=&max_area=&min_price=&max_price=&floor=all&renovation=all&sort=PRICE_ASC&page=1')
-
